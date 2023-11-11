@@ -25,6 +25,22 @@ greetings_dict = {
 }
 
 
+def user_mode() -> int:
+    choice = input( "1. User\n"
+                    "2. Admin\n"
+                    "Select mode from above options: ")
+
+    if choice.isdigit():
+        return int(choice)
+
+
+def mode_choice_is_valid(choice: int) -> bool:
+    if choice == 1 or choice == 2:
+        return True
+    else:
+        return False
+
+
 def print_language_options(lang_options: Dict[int, str]) -> None:
     """
     Given a dictionary, this functions iterates through the values and prints them out.
@@ -40,13 +56,16 @@ def print_language_options(lang_options: Dict[int, str]) -> None:
         # print("{0}: {1}".format(key, lang_dict[key]))
         print(f"{key}: {lang_dict[key]}")
 
+
 def language_input() -> int:
     """
     This function prompts the user for a language choice.
 
     :return: An integer representing the language choice made by the user
     """
-    return int(input("Enter a number: "))
+    choice = input("Enter a number: ")
+    if choice.isdigit():
+        return int(choice)
 
 
 def language_choice_is_valid(lang_options: Dict[int, str], lang_choice: int) -> bool:
@@ -60,7 +79,7 @@ def language_choice_is_valid(lang_options: Dict[int, str], lang_choice: int) -> 
     :param lang_choice: An integer representing the value the user selected
     :return: A boolean representing the validity of the lang_choice
     """
-    if lang_choice in lang_dict:
+    if lang_choice in lang_options:
         return True
     else:
         return False
@@ -77,7 +96,6 @@ def get_name_input(name_prompt_options: Dict[int, str], lang_choice: int) -> str
     :return:
     """
     return name_prompt_options[lang_choice]
-
 
 
 def name_input(name_prompt: str) -> str:
@@ -105,12 +123,21 @@ def greet(name: str, greetings_options: Dict[int, str], lang_choice: int) -> Non
 
 
 if __name__ == '__main__':
-    print_language_options(lang_dict)
-    chosen_lang = language_input()
-    while language_choice_is_valid(lang_dict, chosen_lang) is False:
+    # Select user or admin mode
+    chosen_mode = user_mode()
+    while mode_choice_is_valid(chosen_mode) is False:
         print("Invalid selection. Try again.")
-        chosen_lang = language_input()
+        chosen_mode = user_mode()
 
-    selected_prompt = f"{get_name_input(name_prompt_dict, chosen_lang)} \n"
-    chosen_name = name_input(selected_prompt)
-    greet(chosen_name, greetings_dict, chosen_lang)
+    if chosen_mode == 1:    # User_mode
+        print_language_options(lang_dict)
+        chosen_lang = language_input()
+        while language_choice_is_valid(lang_dict, chosen_lang) is False:
+            print("Invalid selection. Try again.")
+            chosen_lang = language_input()
+
+        selected_prompt = f"{get_name_input(name_prompt_dict, chosen_lang)} \n"
+        chosen_name = name_input(selected_prompt)
+        greet(chosen_name, greetings_dict, chosen_lang)
+    if chosen_mode == 2:    # Admin_mode
+        print("Working on it")
