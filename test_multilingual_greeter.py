@@ -94,3 +94,21 @@ class MultilingualGreeterTest(TestCase):
         multilingual_greeter.greet("Jules Winnfield", greetings_dict, 3)
         self.assertEqual("Olá Jules Winnfield\n", stdout_mock.getvalue())
 
+    @patch('builtins.input', return_value="2")
+    def test_user_mode(self, user_input):
+        actual = multilingual_greeter.user_mode()
+        self.assertEqual(2, actual)
+
+    def test_mode_choice_is_valid(self):
+
+        test_cases = [
+            (1, True),
+            (2, True),
+            (3, False),
+            (4, False),
+            ('x', False)
+        ]
+
+        for key, expected in test_cases:
+            with self.subTest(f"{key}, {expected}"):
+                self.assertEqual(expected, multilingual_greeter.mode_choice_is_valid(key))
