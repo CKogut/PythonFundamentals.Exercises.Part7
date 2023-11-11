@@ -112,3 +112,17 @@ class MultilingualGreeterTest(TestCase):
         for key, expected in test_cases:
             with self.subTest(f"{key}, {expected}"):
                 self.assertEqual(expected, multilingual_greeter.mode_choice_is_valid(key))
+
+    def test_admin_mode_choice_is_valid(self):
+
+        test_cases = [
+            (1, True),
+            (2, True),
+            (3, False),
+            (4, False),
+            ('y', False)
+        ]
+
+        for key, expected in test_cases:
+            with self.subTest(f"{key}, {expected}"):
+                self.assertEqual(expected, multilingual_greeter.mode_choice_is_valid(key))

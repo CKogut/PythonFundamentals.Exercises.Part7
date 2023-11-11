@@ -148,8 +148,15 @@ if __name__ == '__main__':
         selected_prompt = f"{get_name_input(name_prompt_dict, chosen_lang)} \n"
         chosen_name = name_input(selected_prompt)
         greet(chosen_name, greetings_dict, chosen_lang)
-    if chosen_mode == 2:    # Admin_mode
+
+    else:    # Admin_mode
         admin_mode = admin_mode_choice()
         while mode_choice_is_valid(admin_mode) is False:
             print("Invalid selection. Try again.")
             admin_mode = admin_mode_choice()
+
+        if admin_mode == 1:
+            print("Working on it")
+        else:
+            print("Working on this, too")
+
