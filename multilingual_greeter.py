@@ -34,6 +34,15 @@ def user_mode() -> int:
         return int(choice)
 
 
+def admin_mode_choice() -> int:
+    choice = input( "1. Add additional languages\n"
+                    "2. Change greetings for current languages\n"
+                    "Select mode from above options: ")
+
+    if choice.isdigit():
+        return int(choice)
+
+
 def mode_choice_is_valid(choice: int) -> bool:
     if choice == 1 or choice == 2:
         return True
@@ -140,4 +149,7 @@ if __name__ == '__main__':
         chosen_name = name_input(selected_prompt)
         greet(chosen_name, greetings_dict, chosen_lang)
     if chosen_mode == 2:    # Admin_mode
-        print("Working on it")
+        admin_mode = admin_mode_choice()
+        while mode_choice_is_valid(admin_mode) is False:
+            print("Invalid selection. Try again.")
+            admin_mode = admin_mode_choice()
